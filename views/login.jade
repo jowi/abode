@@ -1,0 +1,32 @@
+extends layout
+
+
+block content
+	div(class="well container")
+		form(class="form-horizontal" role="form" id="signupform" method="POST" action="/users/loginvalidation")
+			div(class="form-group")
+					label(class="col-sm-2 control-label") Email
+					div(class="col-sm-10")
+						input(type="email" placeholder="Enter Email" class="form-control" name="email" value=inputtedvalues.email)
+			div(class="form-group")
+					label(class="col-sm-2 control-label") Password
+					div(class="col-sm-10")
+						input(type="password" placeholder="Enter Password" class="form-control" name="password")
+			
+			div(class="form-group")
+
+				if(typeof(error) !== 'undefined')
+					div(class="col-sm-offset-2 col-sm-10")
+						if (error !== 'none')
+							div(class="alert alert-danger") #{message}
+						else if (error === 'none')
+							div(class="alert alert-success") 
+								| Successfully registered 
+								strong #{message} 
+								| you may now 
+								a(href="/users/login" class="alert-link") Login.
+
+			
+
+				div(class="col-sm-offset-2 col-sm-10")
+					button(type="submit" class="btn btn-primary") Login

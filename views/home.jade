@@ -1,0 +1,22 @@
+extends layout
+
+block content
+	div(class="navbar navbar-inverse navbar-fixed-top")
+		div(class="container")
+			div(class="navbar-header")
+				label(class="navbar-brand").
+					My Sample Project
+			div(class="navbar-right")
+				if(typeof(email_session) === 'undefined')
+					a(class="navbar-brand" href='../users/login').
+						Login
+					a(class="navbar-brand" href='../users/signup').
+						Sign Up 
+				else
+					a(class="navbar-brand" href='../users/profile').
+						Welcome, #{email_session}
+					a(class="btn btn-primary btn-sl" href='../users/signout').
+						Signout
+	div(class="container")
+		h1 CONTAINER #{sample_md5hash}
+		
