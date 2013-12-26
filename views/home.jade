@@ -18,5 +18,8 @@ block content
 					a(class="btn btn-primary btn-sl" href='../users/signout').
 						Signout
 	div(class="container")
-		h1 CONTAINER #{sample_md5hash}
+		if( email_session == null)
+			h1 CONTAINER #{sample_md5hash}
+		else
+			a(class="btn btn-primary btn-lg" role="button" href="../inventory/add") Add
 		

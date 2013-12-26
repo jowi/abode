@@ -124,6 +124,7 @@ exports.profile = function(req, res) {
 		var email = req.session.email;
 
 		Users.find({email: email}, function(err, infos) {
+			console.log(infos);
 			res.render('profile', { infos: infos });
 		});
 	}
@@ -138,12 +139,26 @@ exports.updateprofile = function(req, res) {
 	var password = req.body.password;
 	var confirmpassword = req.body.confirmpassword;
 
-	if( password == "" ) {
-			res.render('signup', { error: 'password_mismatch', message: 'Please provide a password', inputtedvalues: inputtedvalues });
-		}
-	else if( password != confirmpassword ) {
-			res.render('signup', { error: 'password_mismatch', message: 'Password mismatch.', inputtedvalues: inputtedvalues });
-	}
+		Users.find({email: email}, function(err, infos) {
+
+			if( password == "" ) {
+				res.render('profile', { error: 'password_mismatch', message: 'Please provide a password', infos: infos  } );
+			}
+			else if( password != confirmpassword ) {
+				res.render('profile', { error: 'password_mismatch', message: 'Password mismatch.', infos: infos  } );
+			}else {
+
+				password = crypto.createHash('md5').update(password).digest('hex');
+
+				Users.update(
+					{ email: email },
+					{ password: password },
+					function ( err ) {
+						res.render('profile', { error: 'none', message: 'Password updated.', infos: infos  } );
+					}
+				);
+			}
+		});
 }
 
 /*TODO: learn how to get count from db*/

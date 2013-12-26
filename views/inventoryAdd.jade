@@ -1,0 +1,42 @@
+extends layout
+
+block content
+
+	div(class="well container")
+		form(class="form-horizontal" role="form" id="signupform" method="POST" enctype="multipart/form-data" action="/inventory/addValidate")
+			div(class="form-group")
+							label(class="col-sm-2 control-label") Title
+							div(class="col-sm-10")
+								input(type="text" placeholder="Enter Title" class="form-control" name="title" value=inputtedvalues.title)
+			div(class="form-group")
+							label(class="col-sm-2 control-label") Description
+							div(class="col-sm-10")
+								textarea( placeholder="Enter Description" class="form-control" name="description") #{inputtedvalues.description}
+
+			div(class="form-group")
+				label(class="col-sm-2 control-label") Main Photo
+				div(class="fileinput fileinput-new col-sm-10" data-provides="fileinput")
+					div(class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;")
+					div
+						span(class="btn btn-default btn-file")
+							span(class="fileinput-new") Select Image
+							span(class="fileinput-exists") Change
+							input(type="file" name="mainPhoto")
+						a( href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput") Remove
+
+			div(class="form-group")
+
+				if(typeof(error) !== 'undefined')
+					div(class="col-sm-offset-2 col-sm-10")
+						if (error !== 'none')
+							div(class="alert alert-danger") #{message}
+						else if (error === 'none')
+							div(class="alert alert-success") 
+								| Successfully registered 
+								strong #{message} 
+								| you may now 
+								a(href="/users/login" class="alert-link") Login.
+
+			div(class="form-group")
+				div(class="col-sm-offset-2 col-sm-10")
+					button(type="submit" class="btn btn-primary") Save

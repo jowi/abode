@@ -3,6 +3,7 @@ extends layout
 
 
 block content
+
 	each info in infos
 
 
@@ -28,11 +29,9 @@ block content
 								div(class="alert alert-danger") #{message}
 							else if (error === 'none')
 								div(class="alert alert-success") 
-									| Successfully registered 
 									strong #{message} 
-									| you may now 
-									a(href="/users/login" class="alert-link") Login.
+									a(href="/" class="alert-link") Go Back.
 
 
 				div(class="col-sm-offset-2 col-sm-10")
-					button(type="submit" class="btn btn-primary") Sign up
+					button(type="submit" class="btn btn-primary") Update Password

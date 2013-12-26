@@ -6,10 +6,15 @@
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
+var inventory = require('./routes/inventory');
 var http = require('http');
 var path = require('path');
 
+
+
 var app = express();
+
+app.use(express.bodyParser()); //used for multipart
 
 // session
 app.use(express.cookieParser());
@@ -52,6 +57,10 @@ app.post('/users/loginvalidation', user.loginvalidation);
 app.get('/users/signout', user.signout);
 
 app.get('/users/profile', user.profile);
+app.post('/users/updateprofile', user.updateprofile);
+
+app.get('/inventory/add', inventory.add);
+app.post('/inventory/addValidate', inventory.addValidate);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
