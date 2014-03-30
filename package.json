@@ -10,7 +10,8 @@
 		"jade": "*",
 		"less-middleware": "*",
 		"mongoose": "*",
-		"crypto": "*"
+		"crypto": "*",
+		"mkdirp": "*"
 	},
 	"devDependencies": {
 		"nodemon" : "*"

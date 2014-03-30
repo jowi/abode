@@ -4,14 +4,17 @@
  */
 
 var fs = require('fs');
+var mkdirp = require("mkdirp");
 
 var mongoose = require('mongoose');
+
 
 mongoose.createConnection('mongodb://localhost/houseAndLot');
 
 var InventorySchema = new mongoose.Schema({
 		title: String,
 		description: String,
+		mainphoto : String,
 		datecreated: { type: Date, default: Date.now }
 });
 
@@ -57,20 +60,20 @@ exports.addValidate = function(req, res){
 		new Inventory({
 				title: title,
 				description: description,
+				mainphoto: req.files.mainPhoto.name,
 			}).save(function(err, inventory){
 
 				if(err) res.json(err);
 
 				// res.send(inventory._id);
-				var lastid = inventory._id;
-
 				
 				// SAVE IMAGE
 				fs.readFile(req.files.mainPhoto.path, function (err, data) {
 
-					var path = __dirname + '../../public/images/inventory/'+'hehehe'+'/'+req.files.mainPhoto.name ;
+					mkdirp(__dirname + '../../public/images/inventory/'+inventory._id);
 
-					console.log(path);
+					var path = __dirname + '../../public/images/inventory/'+inventory._id+'/'+req.files.mainPhoto.name ;
+
 
 					fs.writeFile(path, data, function (err) {
 
